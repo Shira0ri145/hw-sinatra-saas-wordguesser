@@ -7,6 +7,14 @@ class WordGuesserGame
 
   def initialize(word)
     @word = word  #@ is gloval var
+    @guesses = ""
+    @wrong_guesses = ""
+    @show ="" #display - - - - -
+    @incorrect_guesses = 0
+
+    word.length.times do
+      @show += "-"
+    end
   end
 
   def word()
@@ -14,15 +22,45 @@ class WordGuesserGame
   end
 
   def guesses()
-    @guessed = ""
+    @guesses
   end
 
   def wrong_guesses()
-    @guessed = ""
+    @wrong_guesses
   end
 
-  def guess()
+  def word_with_guesses()
+    @show
+  end
 
+  def check_win_or_lose()
+    return :lose if @incorrect_guesses >= 7
+    return :win if @word == @show
+    return :play
+  end
+
+  def guess(letter)    
+    raise ArgumentError.new("Err0r") if letter == nil || letter.empty? || !(letter.match?(/\A[a-zA-Z]+\z/))
+    # raise ArgumentError.new("empty error") if letter.empty?
+    # raise ArgumentError.new("not letter") if !(letter.match?(/\A[a-zA-Z]+\z/))
+    letter.downcase!
+
+    if @word.include?(letter)
+      return false if @guesses.include?(letter)
+      i = 0
+      word.length.times do
+        if word[i] == letter
+          @show[i] = letter
+        end
+        i+=1
+      end
+      @guesses = letter
+    
+    else
+      return false if @wrong_guesses.include?(letter)
+      @wrong_guesses = letter
+    end
+    @incorrect_guesses += 1
   end
 
   # You can test it by installing irb via $ gem install irb
