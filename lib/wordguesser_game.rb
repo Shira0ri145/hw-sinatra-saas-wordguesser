@@ -6,7 +6,23 @@ class WordGuesserGame
   # Get a word from remote "random word" service
 
   def initialize(word)
-    @word = word
+    @word = word  #@ is gloval var
+  end
+
+  def word()
+    @word
+  end
+
+  def guesses()
+    @guessed = ""
+  end
+
+  def wrong_guesses()
+    @guessed = ""
+  end
+
+  def guess()
+
   end
 
   # You can test it by installing irb via $ gem install irb
